@@ -384,7 +384,6 @@ pre {
 	height: 64px;
 	flex-shrink: 0;
 	object-fit: contain;
-	max-width: none;
 }
 
 .site-logo-fallback {
@@ -457,7 +456,7 @@ pre {
 .btn-mpd,
 .header-actions .btn-mpd,
 a.btn-mpd {
-	display: inline-flex !important;
+	display: inline-flex;
 	align-items: center;
 	gap: var(--space-2);
 	background: transparent;
