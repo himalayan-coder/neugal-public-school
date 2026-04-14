@@ -87,7 +87,8 @@
 						<?php if ( $neugal_tw ) : ?>
 						<a href="<?php echo esc_url( $neugal_tw ); ?>" class="topbar-social-link" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Twitter / X', 'neugal-custom' ); ?>">
 							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-								<path d="M4 4l16 16M4 20L20 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+								<!-- Official X (formerly Twitter) letterform -->
+								<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.402 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
 							</svg>
 						</a>
 						<?php endif; ?>

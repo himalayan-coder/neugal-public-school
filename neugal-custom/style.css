@@ -349,10 +349,12 @@ pre {
 .site-branding {
 	position: absolute;
 	left: 0;
-	/* Pull the badge upward into the topbar area */
+	/* Pull the badge upward into the topbar area. The extra 4px extends
+	   the badge slightly above the topbar's top edge so the box-shadow
+	   below the badge is never clipped by the topbar background. */
 	top: calc(-1 * var(--topbar-height) - 4px);
 	width: var(--logo-col-width);
-	/* Total visible height = topbar + navbar + 4 px extra extension */
+	/* Total visible height = topbar + navbar + the same 4 px extension */
 	height: calc(var(--topbar-height) + var(--navbar-height) + 4px);
 	display: flex;
 	align-items: center;
@@ -460,7 +462,7 @@ pre {
 }
 .btn-mpd:hover {
 	background: var(--color-primary);
-	color: var(--color-white) !important;
+	color: var(--color-white);
 	border-color: var(--color-primary);
 }
 
@@ -547,7 +549,8 @@ pre {
 	color: var(--color-accent);
 }
 
-/* Dropdown arrow */
+/* Dropdown arrow — uses ::before so ::after remains available for the
+   animated underline hover effect on top-level items (see below). */
 .main-navigation li.menu-item-has-children > a::before {
 	content: '';
 	display: inline-block;
