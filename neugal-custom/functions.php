@@ -341,6 +341,116 @@ if ( ! function_exists( 'wp_body_open' ) ) {
 }
 
 /*--------------------------------------------------------------
+# Customizer — School Info Settings
+--------------------------------------------------------------*/
+/**
+ * Registers Customizer panels, sections, settings, and controls
+ * for the top-bar contact info, social links, and the
+ * Mandatory Public Disclosure URL.  Non-technical staff can
+ * update all of these from Appearance → Customize without
+ * touching any PHP or CSS.
+ */
+function neugal_customize_register( WP_Customize_Manager $wp_customize ) {
+
+	/* -------------------------------------------------------
+	 * Panel: School Info
+	 ------------------------------------------------------- */
+	$wp_customize->add_panel( 'neugal_school_info', array(
+		'title'       => __( 'School Info', 'neugal-custom' ),
+		'description' => __( 'Update contact details, social media links, and key URLs. Changes appear live on the front end.', 'neugal-custom' ),
+		'priority'    => 30,
+	) );
+
+	/* -------------------------------------------------------
+	 * Section: Contact Details (top bar)
+	 ------------------------------------------------------- */
+	$wp_customize->add_section( 'neugal_contact', array(
+		'title'    => __( 'Contact Details (Top Bar)', 'neugal-custom' ),
+		'panel'    => 'neugal_school_info',
+		'priority' => 10,
+	) );
+
+	// Phone number
+	$wp_customize->add_setting( 'neugal_phone', array(
+		'default'           => '',
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'postMessage',
+	) );
+	$wp_customize->add_control( 'neugal_phone', array(
+		'label'       => __( 'Phone Number', 'neugal-custom' ),
+		'description' => __( 'e.g. +977-9800000000', 'neugal-custom' ),
+		'section'     => 'neugal_contact',
+		'type'        => 'text',
+	) );
+
+	// Email address
+	$wp_customize->add_setting( 'neugal_email', array(
+		'default'           => '',
+		'sanitize_callback' => 'sanitize_email',
+		'transport'         => 'postMessage',
+	) );
+	$wp_customize->add_control( 'neugal_email', array(
+		'label'       => __( 'Email Address', 'neugal-custom' ),
+		'description' => __( 'e.g. info@neugalschool.edu.np', 'neugal-custom' ),
+		'section'     => 'neugal_contact',
+		'type'        => 'email',
+	) );
+
+	/* -------------------------------------------------------
+	 * Section: Social Media Links (top bar)
+	 ------------------------------------------------------- */
+	$wp_customize->add_section( 'neugal_social', array(
+		'title'    => __( 'Social Media Links (Top Bar)', 'neugal-custom' ),
+		'panel'    => 'neugal_school_info',
+		'priority' => 20,
+	) );
+
+	$social_networks = array(
+		'neugal_facebook'  => array( 'label' => __( 'Facebook URL',  'neugal-custom' ), 'desc' => __( 'e.g. https://facebook.com/neugalschool', 'neugal-custom' ) ),
+		'neugal_twitter'   => array( 'label' => __( 'Twitter / X URL', 'neugal-custom' ), 'desc' => __( 'e.g. https://twitter.com/neugalschool', 'neugal-custom' ) ),
+		'neugal_youtube'   => array( 'label' => __( 'YouTube URL',   'neugal-custom' ), 'desc' => __( 'e.g. https://youtube.com/@neugalschool', 'neugal-custom' ) ),
+		'neugal_instagram' => array( 'label' => __( 'Instagram URL', 'neugal-custom' ), 'desc' => __( 'e.g. https://instagram.com/neugalschool', 'neugal-custom' ) ),
+	);
+
+	foreach ( $social_networks as $setting_id => $args ) {
+		$wp_customize->add_setting( $setting_id, array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'postMessage',
+		) );
+		$wp_customize->add_control( $setting_id, array(
+			'label'       => $args['label'],
+			'description' => $args['desc'],
+			'section'     => 'neugal_social',
+			'type'        => 'url',
+		) );
+	}
+
+	/* -------------------------------------------------------
+	 * Section: Key URLs
+	 ------------------------------------------------------- */
+	$wp_customize->add_section( 'neugal_key_urls', array(
+		'title'    => __( 'Key URLs', 'neugal-custom' ),
+		'panel'    => 'neugal_school_info',
+		'priority' => 30,
+	) );
+
+	// Mandatory Public Disclosure URL
+	$wp_customize->add_setting( 'neugal_mpd_url', array(
+		'default'           => '',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'postMessage',
+	) );
+	$wp_customize->add_control( 'neugal_mpd_url', array(
+		'label'       => __( 'Mandatory Public Disclosure URL', 'neugal-custom' ),
+		'description' => __( 'Link for the Mandatory Public Disclosure document or page. Leave blank to hide the button.', 'neugal-custom' ),
+		'section'     => 'neugal_key_urls',
+		'type'        => 'url',
+	) );
+}
+add_action( 'customize_register', 'neugal_customize_register' );
+
+/*--------------------------------------------------------------
 # Theme Credits
 --------------------------------------------------------------*/
 function neugal_theme_credits() {
